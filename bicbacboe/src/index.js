@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
@@ -14,6 +14,17 @@ function Square(props){
     
 }
   
+function Reset() {
+  const [history, setHistory] = useState([{
+    squares: Array(9).fill(null),
+  }]);
+  return (
+    <button onClick={() => setHistory(history)}>
+      Reset
+    </button>
+  );
+}
+
 class Board extends React.Component {
 
     renderSquare(i) {
@@ -96,7 +107,7 @@ class Game extends React.Component {
           </li>
         );
       });
-
+      
       let status;
       if (winner) {
         status = 'Winner: ' + winner;
@@ -111,6 +122,7 @@ class Game extends React.Component {
               onClick={(i) => this.handleClick(i)}/>
           </div>
           <div className="game-info">
+            <Reset></Reset>
             <div>{status}</div>
             <ol>{moves}</ol>
           </div>
